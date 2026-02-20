@@ -1,16 +1,26 @@
-# React + Vite
+Области хранения данных:
+- база данных на json-server
+- BFF
+- redux Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Сущности приложения:
+- пользователь: БД (список пользователей), BFF (Сессия текущего пользователя), стор (отображения в браузере)
+- роль пользователя: БД (список данных), BFF (сессия пользователя с ролью), стор(использование на клиенте)
+- статья: БД (список статй), стор (отображение в браузере)
+- комментарий: БД (Список коммент.), стор(отображения в браузере)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Таблицы БД:
+- пользователи - users: id / login / password / registed_at / role_id
+- роль пользователя - roles: id / name
+- статьи - posts: id / title / image_url / content / published_at
+- комментарии - comments: id / author_id / post_id / content / post_at
 
-## React Compiler
+Схема состояния на BFF:
+- сессия текущего пользователя: login / password / role
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Схема redux store'а на клиенте:
+- user: id / login / role
+- posts: array post: id / title / imageUrl / publishedAt / commentsCount
+- post: id / title / imageUrl / content / publishedAt / comments: array comment: id / author / conent / publishedAt
+- users: array user: id / login / registerAt / role
